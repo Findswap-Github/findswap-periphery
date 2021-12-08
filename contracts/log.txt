@@ -1,0 +1,1069 @@
+yarn run v1.22.15
+$ yarn compile
+$ yarn clean
+$ rimraf ./build/
+$ waffle .waffle.json
+$ yarn copy-v1-artifacts
+$ ncp ./buildV1 ./build
+$ mocha
+
+
+  ExampleComputeLiquidityValue
+    ✓ correct factory address
+    #getLiquidityValue
+      1) correct for 5 shares
+      2) correct for 7 shares
+      3) correct after swap
+      fee on
+        4) correct after swap
+    #getReservesAfterArbitrage
+      5) 1/400
+      6) 1/200
+      7) 1/100 (same price)
+      8) 1/50
+      9) 1/25
+      10) 25/1
+      11) works with large numbers for the price
+    #getLiquidityValue
+      fee is off
+        12) produces the correct value after arbing to 1:105
+        13) produces the correct value after arbing to 1:95
+        14) produces correct value at the current price
+        15) gas current price
+        16) gas higher price
+        17) gas lower price
+        after a swap
+          18) "before each" hook: swap to ~1:25 for "is roughly 1/25th liquidity"
+      fee is on
+        19) gas current price
+        20) gas higher price
+        21) gas lower price
+        no fee to be collected
+          22) produces the correct value after arbing to 1:105
+          23) produces the correct value after arbing to 1:95
+          24) produces correct value at the current price
+        after a swap
+          25) "before each" hook: swap to ~1:25 for "is roughly 1:25"
+
+  ExampleFlashSwap
+    26) uniswapV2Call:0
+    27) uniswapV2Call:1
+
+  ExampleOracleSimple
+    28) "before each" hook for "update"
+
+  ExampleSlidingWindowOracle
+    ✓ requires granularity to be greater than 0
+    ✓ requires windowSize to be evenly divisible by granularity
+    ✓ computes the periodSize correctly (65ms)
+    #observationIndexOf
+      ✓ works for examples (79ms)
+      ✓ overflow safe (61ms)
+      ✓ matches offline computation (63ms)
+    #update
+      29) succeeds
+      30) sets the appropriate epoch slot
+      31) gas for first update (allocates empty array)
+      32) gas for second update in the same period (skips)
+      33) gas for second update different period (no allocate, no skip)
+      34) second update in one timeslot does not overwrite
+      ✓ fails for invalid pair
+    #consult
+      35) fails if previous bucket not set
+      ✓ fails for invalid pair
+      happy path
+        36) "before each" hook: add some prices for "has cumulative price in previous bucket"
+      price changes over period
+        37) "before each" hook: add some prices for "provides the correct ratio in consult token0"
+
+  ExampleSwapToPrice
+    ✓ correct router address
+    #swapToPrice
+      ✓ requires non-zero true price inputs
+      ✓ requires non-zero max spend
+      38) moves the price to 1:90
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+      39) moves the price to 1:110
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+      40) reverse token order
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+      41) swap gas cost
+
+  UniswapV2Migrator
+    42) migrate
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+
+  UniswapV2Router{01,02}
+    UniswapV2Router01
+      ✓ factory, WETH
+      43) addLiquidity
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+      44) addLiquidityETH
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+      45) removeLiquidity
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+      46) removeLiquidityETH
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+      47) removeLiquidityWithPermit
+      48) removeLiquidityETHWithPermit
+      swapExactTokensForTokens
+        49) happy path
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+        50) amounts
+        51) gas
+      swapTokensForExactTokens
+        52) happy path
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+        53) amounts
+      swapExactETHForTokens
+        54) happy path
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+        55) amounts
+        56) gas
+      swapTokensForExactETH
+        57) happy path
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+        58) amounts
+      swapExactTokensForETH
+        59) happy path
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+        60) amounts
+      swapETHForExactTokens
+        61) happy path
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+        62) amounts
+    UniswapV2Router02
+      ✓ factory, WETH
+      63) addLiquidity
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+      64) addLiquidityETH
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+      65) removeLiquidity
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+      66) removeLiquidityETH
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+      67) removeLiquidityWithPermit
+      68) removeLiquidityETHWithPermit
+      swapExactTokensForTokens
+        69) happy path
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+        70) amounts
+        71) gas
+      swapTokensForExactTokens
+        72) happy path
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+        73) amounts
+      swapExactETHForTokens
+        74) happy path
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+        75) amounts
+        76) gas
+      swapTokensForExactETH
+        77) happy path
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+        78) amounts
+      swapExactTokensForETH
+        79) happy path
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+        80) amounts
+      swapETHForExactTokens
+        81) happy path
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+RuntimeError: VM Exception while processing transaction: revert
+        82) amounts
+
+  UniswapV2Router02
+    ✓ quote
+    ✓ getAmountOut
+    ✓ getAmountIn
+    83) getAmountsOut
+    84) getAmountsIn
+
+  fee-on-transfer tokens
+    85) removeLiquidityETHSupportingFeeOnTransferTokens
+    86) removeLiquidityETHWithPermitSupportingFeeOnTransferTokens
+    87) swapExactETHForTokensSupportingFeeOnTransferTokens
+    88) swapExactTokensForETHSupportingFeeOnTransferTokens
+    swapExactTokensForTokensSupportingFeeOnTransferTokens
+      89) "before each" hook for "DTT -> WETH"
+
+  fee-on-transfer tokens: reloaded
+    swapExactTokensForTokensSupportingFeeOnTransferTokens
+      90) "before each" hook for "DTT -> DTT2"
+
+
+  17 passing (32s)
+  90 failing
+
+  1) ExampleComputeLiquidityValue
+       #getLiquidityValue
+         correct for 5 shares:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at /Users/shr1ftyy/Personal/Computing/bounties/findora_defi/v2-periphery/node_modules/ganache-core/lib/blockchain_double.js:568:26
+
+  2) ExampleComputeLiquidityValue
+       #getLiquidityValue
+         correct for 7 shares:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at /Users/shr1ftyy/Personal/Computing/bounties/findora_defi/v2-periphery/node_modules/ganache-core/lib/blockchain_double.js:568:26
+
+  3) ExampleComputeLiquidityValue
+       #getLiquidityValue
+         correct after swap:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  4) ExampleComputeLiquidityValue
+       #getLiquidityValue
+         fee on
+           correct after swap:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  5) ExampleComputeLiquidityValue
+       #getReservesAfterArbitrage
+         1/400:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at /Users/shr1ftyy/Personal/Computing/bounties/findora_defi/v2-periphery/node_modules/ganache-core/lib/blockchain_double.js:568:26
+
+  6) ExampleComputeLiquidityValue
+       #getReservesAfterArbitrage
+         1/200:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at /Users/shr1ftyy/Personal/Computing/bounties/findora_defi/v2-periphery/node_modules/ganache-core/lib/blockchain_double.js:568:26
+
+  7) ExampleComputeLiquidityValue
+       #getReservesAfterArbitrage
+         1/100 (same price):
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at /Users/shr1ftyy/Personal/Computing/bounties/findora_defi/v2-periphery/node_modules/ganache-core/lib/blockchain_double.js:568:26
+
+  8) ExampleComputeLiquidityValue
+       #getReservesAfterArbitrage
+         1/50:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at /Users/shr1ftyy/Personal/Computing/bounties/findora_defi/v2-periphery/node_modules/ganache-core/lib/blockchain_double.js:568:26
+
+  9) ExampleComputeLiquidityValue
+       #getReservesAfterArbitrage
+         1/25:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at /Users/shr1ftyy/Personal/Computing/bounties/findora_defi/v2-periphery/node_modules/ganache-core/lib/blockchain_double.js:568:26
+
+  10) ExampleComputeLiquidityValue
+       #getReservesAfterArbitrage
+         25/1:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at /Users/shr1ftyy/Personal/Computing/bounties/findora_defi/v2-periphery/node_modules/ganache-core/lib/blockchain_double.js:568:26
+
+  11) ExampleComputeLiquidityValue
+       #getReservesAfterArbitrage
+         works with large numbers for the price:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at /Users/shr1ftyy/Personal/Computing/bounties/findora_defi/v2-periphery/node_modules/ganache-core/lib/blockchain_double.js:568:26
+
+  12) ExampleComputeLiquidityValue
+       #getLiquidityValue
+         fee is off
+           produces the correct value after arbing to 1:105:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at /Users/shr1ftyy/Personal/Computing/bounties/findora_defi/v2-periphery/node_modules/ganache-core/lib/blockchain_double.js:568:26
+
+  13) ExampleComputeLiquidityValue
+       #getLiquidityValue
+         fee is off
+           produces the correct value after arbing to 1:95:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at /Users/shr1ftyy/Personal/Computing/bounties/findora_defi/v2-periphery/node_modules/ganache-core/lib/blockchain_double.js:568:26
+
+  14) ExampleComputeLiquidityValue
+       #getLiquidityValue
+         fee is off
+           produces correct value at the current price:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at /Users/shr1ftyy/Personal/Computing/bounties/findora_defi/v2-periphery/node_modules/ganache-core/lib/blockchain_double.js:568:26
+
+  15) ExampleComputeLiquidityValue
+       #getLiquidityValue
+         fee is off
+           gas current price:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at /Users/shr1ftyy/Personal/Computing/bounties/findora_defi/v2-periphery/node_modules/ganache-core/lib/blockchain_double.js:568:26
+
+  16) ExampleComputeLiquidityValue
+       #getLiquidityValue
+         fee is off
+           gas higher price:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at /Users/shr1ftyy/Personal/Computing/bounties/findora_defi/v2-periphery/node_modules/ganache-core/lib/blockchain_double.js:568:26
+
+  17) ExampleComputeLiquidityValue
+       #getLiquidityValue
+         fee is off
+           gas lower price:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at /Users/shr1ftyy/Personal/Computing/bounties/findora_defi/v2-periphery/node_modules/ganache-core/lib/blockchain_double.js:568:26
+
+  18) ExampleComputeLiquidityValue
+       #getLiquidityValue
+         fee is off
+           after a swap
+             "before each" hook: swap to ~1:25 for "is roughly 1/25th liquidity":
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  19) ExampleComputeLiquidityValue
+       #getLiquidityValue
+         fee is on
+           gas current price:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at /Users/shr1ftyy/Personal/Computing/bounties/findora_defi/v2-periphery/node_modules/ganache-core/lib/blockchain_double.js:568:26
+
+  20) ExampleComputeLiquidityValue
+       #getLiquidityValue
+         fee is on
+           gas higher price:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at /Users/shr1ftyy/Personal/Computing/bounties/findora_defi/v2-periphery/node_modules/ganache-core/lib/blockchain_double.js:568:26
+
+  21) ExampleComputeLiquidityValue
+       #getLiquidityValue
+         fee is on
+           gas lower price:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at /Users/shr1ftyy/Personal/Computing/bounties/findora_defi/v2-periphery/node_modules/ganache-core/lib/blockchain_double.js:568:26
+
+  22) ExampleComputeLiquidityValue
+       #getLiquidityValue
+         fee is on
+           no fee to be collected
+             produces the correct value after arbing to 1:105:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at /Users/shr1ftyy/Personal/Computing/bounties/findora_defi/v2-periphery/node_modules/ganache-core/lib/blockchain_double.js:568:26
+
+  23) ExampleComputeLiquidityValue
+       #getLiquidityValue
+         fee is on
+           no fee to be collected
+             produces the correct value after arbing to 1:95:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at /Users/shr1ftyy/Personal/Computing/bounties/findora_defi/v2-periphery/node_modules/ganache-core/lib/blockchain_double.js:568:26
+
+  24) ExampleComputeLiquidityValue
+       #getLiquidityValue
+         fee is on
+           no fee to be collected
+             produces correct value at the current price:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at /Users/shr1ftyy/Personal/Computing/bounties/findora_defi/v2-periphery/node_modules/ganache-core/lib/blockchain_double.js:568:26
+
+  25) ExampleComputeLiquidityValue
+       #getLiquidityValue
+         fee is on
+           after a swap
+             "before each" hook: swap to ~1:25 for "is roughly 1:25":
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  26) ExampleFlashSwap
+       uniswapV2Call:0:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  27) ExampleFlashSwap
+       uniswapV2Call:1:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  28) ExampleOracleSimple
+       "before each" hook for "update":
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  29) ExampleSlidingWindowOracle
+       #update
+         succeeds:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  30) ExampleSlidingWindowOracle
+       #update
+         sets the appropriate epoch slot:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  31) ExampleSlidingWindowOracle
+       #update
+         gas for first update (allocates empty array):
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  32) ExampleSlidingWindowOracle
+       #update
+         gas for second update in the same period (skips):
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  33) ExampleSlidingWindowOracle
+       #update
+         gas for second update different period (no allocate, no skip):
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  34) ExampleSlidingWindowOracle
+       #update
+         second update in one timeslot does not overwrite:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  35) ExampleSlidingWindowOracle
+       #consult
+         fails if previous bucket not set:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  36) ExampleSlidingWindowOracle
+       #consult
+         happy path
+           "before each" hook: add some prices for "has cumulative price in previous bucket":
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  37) ExampleSlidingWindowOracle
+       #consult
+         price changes over period
+           "before each" hook: add some prices for "provides the correct ratio in consult token0":
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  38) ExampleSwapToPrice
+       #swapToPrice
+         moves the price to 1:90:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  39) ExampleSwapToPrice
+       #swapToPrice
+         moves the price to 1:110:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  40) ExampleSwapToPrice
+       #swapToPrice
+         reverse token order:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  41) ExampleSwapToPrice
+       #swapToPrice
+         swap gas cost:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  42) UniswapV2Migrator
+       migrate:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  43) UniswapV2Router{01,02}
+       UniswapV2Router01
+         addLiquidity:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  44) UniswapV2Router{01,02}
+       UniswapV2Router01
+         addLiquidityETH:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  45) UniswapV2Router{01,02}
+       UniswapV2Router01
+         removeLiquidity:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  46) UniswapV2Router{01,02}
+       UniswapV2Router01
+         removeLiquidityETH:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  47) UniswapV2Router{01,02}
+       UniswapV2Router01
+         removeLiquidityWithPermit:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  48) UniswapV2Router{01,02}
+       UniswapV2Router01
+         removeLiquidityETHWithPermit:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  49) UniswapV2Router{01,02}
+       UniswapV2Router01
+         swapExactTokensForTokens
+           happy path:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  50) UniswapV2Router{01,02}
+       UniswapV2Router01
+         swapExactTokensForTokens
+           amounts:
+     RuntimeError: VM Exception while processing transaction: invalid opcode
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  51) UniswapV2Router{01,02}
+       UniswapV2Router01
+         swapExactTokensForTokens
+           gas:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  52) UniswapV2Router{01,02}
+       UniswapV2Router01
+         swapTokensForExactTokens
+           happy path:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  53) UniswapV2Router{01,02}
+       UniswapV2Router01
+         swapTokensForExactTokens
+           amounts:
+     RuntimeError: VM Exception while processing transaction: invalid opcode
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  54) UniswapV2Router{01,02}
+       UniswapV2Router01
+         swapExactETHForTokens
+           happy path:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  55) UniswapV2Router{01,02}
+       UniswapV2Router01
+         swapExactETHForTokens
+           amounts:
+     RuntimeError: VM Exception while processing transaction: invalid opcode
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  56) UniswapV2Router{01,02}
+       UniswapV2Router01
+         swapExactETHForTokens
+           gas:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  57) UniswapV2Router{01,02}
+       UniswapV2Router01
+         swapTokensForExactETH
+           happy path:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  58) UniswapV2Router{01,02}
+       UniswapV2Router01
+         swapTokensForExactETH
+           amounts:
+     RuntimeError: VM Exception while processing transaction: invalid opcode
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  59) UniswapV2Router{01,02}
+       UniswapV2Router01
+         swapExactTokensForETH
+           happy path:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  60) UniswapV2Router{01,02}
+       UniswapV2Router01
+         swapExactTokensForETH
+           amounts:
+     RuntimeError: VM Exception while processing transaction: invalid opcode
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  61) UniswapV2Router{01,02}
+       UniswapV2Router01
+         swapETHForExactTokens
+           happy path:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  62) UniswapV2Router{01,02}
+       UniswapV2Router01
+         swapETHForExactTokens
+           amounts:
+     RuntimeError: VM Exception while processing transaction: invalid opcode
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  63) UniswapV2Router{01,02}
+       UniswapV2Router02
+         addLiquidity:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  64) UniswapV2Router{01,02}
+       UniswapV2Router02
+         addLiquidityETH:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  65) UniswapV2Router{01,02}
+       UniswapV2Router02
+         removeLiquidity:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  66) UniswapV2Router{01,02}
+       UniswapV2Router02
+         removeLiquidityETH:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  67) UniswapV2Router{01,02}
+       UniswapV2Router02
+         removeLiquidityWithPermit:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  68) UniswapV2Router{01,02}
+       UniswapV2Router02
+         removeLiquidityETHWithPermit:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  69) UniswapV2Router{01,02}
+       UniswapV2Router02
+         swapExactTokensForTokens
+           happy path:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  70) UniswapV2Router{01,02}
+       UniswapV2Router02
+         swapExactTokensForTokens
+           amounts:
+     RuntimeError: VM Exception while processing transaction: invalid opcode
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  71) UniswapV2Router{01,02}
+       UniswapV2Router02
+         swapExactTokensForTokens
+           gas:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  72) UniswapV2Router{01,02}
+       UniswapV2Router02
+         swapTokensForExactTokens
+           happy path:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  73) UniswapV2Router{01,02}
+       UniswapV2Router02
+         swapTokensForExactTokens
+           amounts:
+     RuntimeError: VM Exception while processing transaction: invalid opcode
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  74) UniswapV2Router{01,02}
+       UniswapV2Router02
+         swapExactETHForTokens
+           happy path:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  75) UniswapV2Router{01,02}
+       UniswapV2Router02
+         swapExactETHForTokens
+           amounts:
+     RuntimeError: VM Exception while processing transaction: invalid opcode
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  76) UniswapV2Router{01,02}
+       UniswapV2Router02
+         swapExactETHForTokens
+           gas:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  77) UniswapV2Router{01,02}
+       UniswapV2Router02
+         swapTokensForExactETH
+           happy path:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  78) UniswapV2Router{01,02}
+       UniswapV2Router02
+         swapTokensForExactETH
+           amounts:
+     RuntimeError: VM Exception while processing transaction: invalid opcode
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  79) UniswapV2Router{01,02}
+       UniswapV2Router02
+         swapExactTokensForETH
+           happy path:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  80) UniswapV2Router{01,02}
+       UniswapV2Router02
+         swapExactTokensForETH
+           amounts:
+     RuntimeError: VM Exception while processing transaction: invalid opcode
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  81) UniswapV2Router{01,02}
+       UniswapV2Router02
+         swapETHForExactTokens
+           happy path:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  82) UniswapV2Router{01,02}
+       UniswapV2Router02
+         swapETHForExactTokens
+           amounts:
+     RuntimeError: VM Exception while processing transaction: invalid opcode
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  83) UniswapV2Router02
+       getAmountsOut:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  84) UniswapV2Router02
+       getAmountsIn:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  85) fee-on-transfer tokens
+       removeLiquidityETHSupportingFeeOnTransferTokens:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  86) fee-on-transfer tokens
+       removeLiquidityETHWithPermitSupportingFeeOnTransferTokens:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  87) fee-on-transfer tokens
+       swapExactETHForTokensSupportingFeeOnTransferTokens:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  88) fee-on-transfer tokens
+       swapExactTokensForETHSupportingFeeOnTransferTokens:
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  89) fee-on-transfer tokens
+       swapExactTokensForTokensSupportingFeeOnTransferTokens
+         "before each" hook for "DTT -> WETH":
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+  90) fee-on-transfer tokens: reloaded
+       swapExactTokensForTokensSupportingFeeOnTransferTokens
+         "before each" hook for "DTT -> DTT2":
+     RuntimeError: VM Exception while processing transaction: revert
+      at Function.RuntimeError.fromResults (node_modules/ganache-core/lib/utils/runtimeerror.js:94:13)
+      at BlockchainDouble.processBlock (node_modules/ganache-core/lib/blockchain_double.js:627:24)
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+
+
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
